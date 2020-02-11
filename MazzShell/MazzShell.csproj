@@ -7,6 +7,9 @@
     <Authors>Murilo Mazzeu</Authors>
     <Company>MuriloMazzeu.NET</Company>
     <RepositoryUrl>https://github.com/MuriloMazzeu/MazzShell</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Title>MazzShell</Title>
+    <PackageDescription>Wrapper for building background services</PackageDescription>
   </PropertyGroup>
 
   <ItemGroup>
