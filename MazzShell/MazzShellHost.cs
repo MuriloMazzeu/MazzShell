@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace MazzShell
 {
-    public sealed class MazzShell
+    public sealed class MazzShellHost
     {
-        public static MazzShell CreateShellHost(string[] args)
+        public static MazzShellHost CreateShell(string[] args)
         {
             var builder = Host
                 .CreateDefaultBuilder(args)
                 .UseWindowsService();
 
-            return new MazzShell(builder);
+            return new MazzShellHost(builder);
         }
 
-        private MazzShell(IHostBuilder builder)
+        private MazzShellHost(IHostBuilder builder)
         {
             HostBuilder = builder;
             Singletons = new Dictionary<Type, Type>();
@@ -28,14 +28,14 @@ namespace MazzShell
         }
 
         private List<Action<IServiceCollection>> ServiceConfigures { get; }
-        public MazzShell ConfigureServices(Action<IServiceCollection> action)
+        public MazzShellHost ConfigureServices(Action<IServiceCollection> action)
         {
             ServiceConfigures.Add(action);
             return this;
         }
 
         private Dictionary<Type, Type> Singletons { get; }
-        public MazzShell AddSingleton<TService, TImplementation>()
+        public MazzShellHost AddSingleton<TService, TImplementation>()
             where TService : class
             where TImplementation : class, TService
         {
@@ -44,7 +44,7 @@ namespace MazzShell
         }
 
         private Dictionary<Type, Type> Scopeds { get; }
-        public MazzShell AddScoped<TService, TImplementation>()
+        public MazzShellHost AddScoped<TService, TImplementation>()
             where TService : class
             where TImplementation : class, TService
         {
@@ -53,7 +53,7 @@ namespace MazzShell
         }
 
         private Dictionary<Type, Type> Transients { get; }
-        public MazzShell AddTransient<TService, TImplementation>()
+        public MazzShellHost AddTransient<TService, TImplementation>()
             where TService : class
             where TImplementation : class, TService
         {
@@ -62,7 +62,7 @@ namespace MazzShell
         }
 
         private List<Action<IServiceCollection>> Workers { get; }
-        public MazzShell AddWorker<TService>()
+        public MazzShellHost AddWorker<TService>()
             where TService : class, IBackgroundService
         {
             Workers.Add(services =>

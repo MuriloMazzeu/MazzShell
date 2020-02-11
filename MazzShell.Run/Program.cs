@@ -4,7 +4,7 @@
     {
         public static void Main(string[] args)
         {
-            MazzShell.CreateShellHost(args)
+            MazzShellHost.CreateShell(args)
                 .AddTransient<IConsoleWritter, ConsoleWritter>()
                 .AddWorker<MyService>()
                 .Run();
